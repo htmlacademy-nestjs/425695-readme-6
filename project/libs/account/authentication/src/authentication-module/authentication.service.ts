@@ -10,7 +10,7 @@ export class AuthenticationService {
     private readonly userRepository: UserRepository
   ) {}
 
-  public async register(dto: CreateUserDto) {
+  public async register(dto: CreateUserDto): Promise<UserEntity> {
     const {email, firstName, lastName, password} = dto;
 
     const user = {
@@ -28,8 +28,9 @@ export class AuthenticationService {
     const userEntity = await new UserEntity(user)
       .setPassword(password)
 
-    return this.userRepository
-      .save(userEntity);
+    this.userRepository.save(userEntity);
+
+    return userEntity;
   }
 
   public async verifyUser(dto: LoginUserDto) {
