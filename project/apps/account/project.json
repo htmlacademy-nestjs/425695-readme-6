@@ -1,21 +1,21 @@
 {
-  "name": "user",
+  "name": "account",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/user/src",
+  "sourceRoot": "apps/account/src",
   "projectType": "application",
   "targets": {
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "user:build"
+        "buildTarget": "account:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "user:build:development"
+          "buildTarget": "account:build:development"
         },
         "production": {
-          "buildTarget": "user:build:production"
+          "buildTarget": "account:build:production"
         }
       }
     }
