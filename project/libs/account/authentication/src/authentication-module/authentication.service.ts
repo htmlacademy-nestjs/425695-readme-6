@@ -1,7 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UserEntity, UserRepository } from '@project/user';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { AUTH_USER_EXISTS } from './authentication.constants';
+import { AuthUser } from './authentication.constants';
+import { LoginUserDto } from '../dto/login-user.dto';
 
 @Injectable()
 export class AuthenticationService {
@@ -21,7 +22,7 @@ export class AuthenticationService {
       .findByEmail(email);
 
     if (existUser) {
-      throw new ConflictException(AUTH_USER_EXISTS);
+      throw new ConflictException(AuthUser.EXISTS);
     }
 
     const userEntity = await new UserEntity(user)
@@ -29,5 +30,30 @@ export class AuthenticationService {
 
     return this.userRepository
       .save(userEntity);
+  }
+
+  public async verifyUser(dto: LoginUserDto) {
+    const {email, password} = dto;
+    const existUser = await this.userRepository.findByEmail(email);
+
+    if (!existUser) {
+      throw new NotFoundException(AuthUser.NOT_FOUND);
+    }
+
+    if (!await existUser.comparePassword(password)) {
+      throw new UnauthorizedException(AuthUser.PASSWORD_WRONG);
+    }
+
+    return existUser;
+  }
+
+  public async getUser(id: string) {
+    const user = await this.userRepository.findById(id);
+
+    if (! user) {
+      throw new NotFoundException(AuthUser.NOT_FOUND);
+    }
+
+    return user;
   }
 }
