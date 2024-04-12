@@ -5,15 +5,6 @@ import { MongoEnvConfiguration } from './mongodb/mongodb.env.config';
 
 const DEFAULT_MONGO_PORT = 27017;
 
-export interface MongoConfig {
-  host: string;
-  name: string;
-  port: number;
-  user: string;
-  password: string;
-  authBase: string;
-}
-
 async function getDbConfig(): Promise<MongoEnvConfiguration> {
   const config = plainToClass(MongoEnvConfiguration, {
     host: process.env.MONGO_HOST,
