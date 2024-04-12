@@ -1,8 +1,9 @@
 import { IsNumber, IsOptional, IsString, Max, Min, validateOrReject } from 'class-validator';
 import { MongoDBEnvValidationMessage, MongoDBPort } from './mongodb.constants';
+import { MongoConfig } from '@project/shared/helpers';
 
 
-export class MongoEnvConfiguration {
+export class MongoEnvConfiguration implements MongoConfig {
   @IsString({ message: MongoDBEnvValidationMessage.DB_NAME_REQUIRED })
   public name: string;
 
