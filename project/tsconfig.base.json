@@ -17,6 +17,7 @@
     "paths": {
       "@project/account-config": ["libs/account/config/src/index.ts"],
       "@project/authentication": ["libs/account/authentication/src/index.ts"],
+      "@project/blog-models": ["libs/blog/models/src/index.ts"],
       "@project/shared/core": ["libs/shared/core/src/index.ts"],
       "@project/shared/data-access": ["libs/shared/data-access/src/index.ts"],
       "@project/shared/domain-types": ["libs/shared/domain-types/src/index.ts"],
