@@ -1,1 +1,1 @@
-export * from './lib/blog-models';
+export * from './prisma-client-module';
