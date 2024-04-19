@@ -21,7 +21,18 @@ model Post {
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
   userId      String   @map("user_id")
+  categories Category[]
 
   @@index([title])
   @@map("posts")
+}
+
+model Category {
+  id        String  @id @default(uuid())
+  title     String
+  posts     Post[]
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  @@index([title])
+  @@map("categories")
 }
