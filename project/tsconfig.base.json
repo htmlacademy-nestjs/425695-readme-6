@@ -21,6 +21,7 @@
       "@project/blog-comment": ["libs/blog/comment/src/index.ts"],
       "@project/blog-models": ["libs/blog/models/src/index.ts"],
       "@project/blog-post": ["libs/blog/post/src/index.ts"],
+      "@project/pipes": ["libs/shared/pipes/src/index.ts"],
       "@project/shared/core": ["libs/shared/core/src/index.ts"],
       "@project/shared/data-access": ["libs/shared/data-access/src/index.ts"],
       "@project/shared/domain-types": ["libs/shared/domain-types/src/index.ts"],
