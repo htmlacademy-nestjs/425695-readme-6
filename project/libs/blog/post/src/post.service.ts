@@ -9,12 +9,15 @@ import { PostEntity } from './post.entity';
 import { PostQuery } from './post.query';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostFactory } from './post.factory';
+import { CommentEntity, CommentFactory, CommentRepository, CreateCommentDto } from '@project/blog-comment';
 
 @Injectable()
 export class PostService {
   constructor(
     private readonly postRepository: PostRepository,
     private readonly categoryService: CategoryService,
+    private readonly commentRepository: CommentRepository,
+    private readonly commentFactory: CommentFactory,
   ) {}
 
   public async getAllPosts(query?: PostQuery): Promise<PaginationResult<PostEntity>> {
@@ -70,5 +73,13 @@ export class PostService {
     await this.postRepository.update(existsPost);
 
     return existsPost;
+  }
+
+  public async addComment(postId: string, dto: CreateCommentDto): Promise<CommentEntity> {
+    const existsPost = await this.getPost(postId);
+    const newComment = this.commentFactory.createFromDto(dto, existsPost.id);
+    await this.commentRepository.save(newComment);
+
+    return newComment;
   }
 }

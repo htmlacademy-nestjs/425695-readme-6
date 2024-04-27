@@ -7,9 +7,10 @@ import { PostController } from './post.controller';
 import { PostService } from './post.service';
 import { PostRepository } from './post.repository';
 import { PostFactory } from './post.factory';
+import { CommentModule } from '@project/blog-comment';
 
 @Module({
-  imports: [CategoryModule, PrismaClientModule],
+  imports: [CategoryModule, CommentModule, PrismaClientModule],
   controllers: [PostController],
   providers: [PostService, PostRepository, PostFactory],
   exports: [PostService],

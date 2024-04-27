@@ -17,10 +17,4 @@ export class CommentController {
     return fillDto(CommentRdo, comments.map((comment) => comment.toPOJO()));
   }
 
-  @Post('/')
-  public async create(@Param('postId') postId: string, @Body() dto: CreateCommentDto) {
-    const newComment = await this.commentService.createComment(postId, dto);
-    return fillDto(CommentRdo, newComment.toPOJO());
-  }
-
 }
