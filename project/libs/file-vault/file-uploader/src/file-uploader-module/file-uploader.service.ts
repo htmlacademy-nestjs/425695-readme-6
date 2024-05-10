@@ -4,6 +4,7 @@ import { ConfigType } from '@nestjs/config';
 import { ensureDir } from 'fs-extra';
 import { writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import dayjs from 'dayjs';
 
 import { FileVaultConfig } from '@project/file-vault-config';
 
@@ -17,11 +18,12 @@ export class FileUploaderService {
   ) {}
 
   private getUploadDirectoryPath(): string {
-    return this.config.uploadDirectory;
+    const [year, month] = dayjs().format('YYYY MM').split(' ');
+    return join(this.config.uploadDirectory, year, month);
   }
 
   private getDestinationFilePath(filename: string): string {
-    return join(this.getUploadDirectoryPath(), filename)
+    return join(this.getUploadDirectoryPath(), filename);
   }
 
   public async saveFile(file: Express.Multer.File): Promise<string> {
