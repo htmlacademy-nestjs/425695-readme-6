@@ -5,6 +5,8 @@ import { ensureDir } from 'fs-extra';
 import { writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import dayjs from 'dayjs';
+import { extension } from 'mime-types';
+import { randomUUID } from 'node:crypto';
 
 import { FileVaultConfig } from '@project/file-vault-config';
 
@@ -29,7 +31,10 @@ export class FileUploaderService {
   public async saveFile(file: Express.Multer.File): Promise<string> {
     try {
       const uploadDirectoryPath = this.getUploadDirectoryPath();
-      const destinationFile = this.getDestinationFilePath(file.originalname);
+      const filename = randomUUID();
+      const fileExtension = extension(file.mimetype);
+
+      const destinationFile = this.getDestinationFilePath(`${filename}.${fileExtension}`);
 
       await ensureDir(uploadDirectoryPath);
       await writeFile(destinationFile, file.buffer);
